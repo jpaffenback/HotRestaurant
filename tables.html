@@ -1,51 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
 
     <title>Restaurant</title>
 </head>
+
 <body>
-    
+
     <div class="jumbotron">
-        <h1 class="text-center"><span class="glyphicon glyphicon-cutlery"></span>Restaurant</h1>
-        
+        <h1 class="text-center">
+            <span class="glyphicon glyphicon-cutlery"></span>Restaurant</h1>
+
         <hr class="my-4">
         <div class="text-center">
-        <h2>Current Reservations and Waiting List</p>
-        <p class="lead"></div>
+            <h2>Current Reservations and Waiting List</p>
+                <p class="lead">
+        </div>
+        <div class="text-center">
+            <a href="/reserve">
+                <button type="button" class="btn btn-lg btn-secondary">
+                    </span> Make Reservation</button>
+            </a>
+
             <div class="text-center">
-                <a href="reserve.html"><button type="button" class="btn btn-lg btn-secondary"></span> Make Reservation</button></a>
-                
-                <div class="text-center">
-                <a href="home.html"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
-      </div>
-        
+                <a href="/home">
+                    <button type="button" class="btn btn-lg btn-default">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </button>
+                </a>
+            </div>
+
+        </div>
     </div>
-</div>
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">Current Reservations</h4>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Current Reservations</h4>
+        </div>
+        <div class="panel-body" id="tableSection">
+
+        </div>
     </div>
-    <div class="panel-body" id="tableSection">
-    </div>
-</div>
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">Waiting List</h4>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Waiting List</h4>
+        </div>
+        <div class="panel-body" id="waitlistSection">
+
+        </div>
     </div>
-    <div class="panel-body" id="waitlistSection">
-    </div>
-</div>
+
+    <script type="text/javascript">
+
+        $.get("/api/tables/", function (data) {
+            console.log(data);
+            for (i = 0; i < data.length; i++) {
+                if (i < 4) {
+                    $("#tableSection").append("<ul id = 'reserve'></ul>")
+                    $("#reserve").append("<li>" + data[i].name + "</li>");
+                    $("#reserve").append("<li>" + data[i].phone + "</li>");
+                    $("#reserve").append("<li>" + data[i].email + "</li>");
+                    $("#reserve").append("<li>" + data[i].username + "</li>");
+                    $("#reserve").append("----------------------------");
+                }
+                else {
+                    $("#waitlistSection").append("<ul id = 'wait'></ul>")
+                    $("#wait").append("<li>" + data[i].name + "</li>");
+                    $("#wait").append("<li>" + data[i].phone + "</li>");
+                    $("#wait").append("<li>" + data[i].email + "</li>");
+                    $("#wait").append("<li>" + data[i].username + "</li>");
+                    $("#wait").append("----------------------------------");
+                }
+            }
+
+        })
+
+
+    </script>
 </body>
+
 </html>

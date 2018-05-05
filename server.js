@@ -7,7 +7,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 var tables = [];
-var waitlist = [];
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -35,7 +35,11 @@ app.get("/api/waitlist", function (req, res) {
 app.post("/api/tables", function (req, res){
     var newTable = req.body;
     tables.push(newTable);
-    res.json(newTable);
+    if(tables.length < 5){
+        res.json("You're table has been reserved");
+        return;
+    }
+    res.json('You are on the waiting list')
 });
 
 app.post("/api/waitlist", function(req, res){
